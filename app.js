@@ -4,6 +4,7 @@ const   express = require("express"),
         passport = require('passport'),
         passportLocal = require('passport-local'),
         passportLocalMongoose = require('passport-local-mongoose'),
+<<<<<<< HEAD
         methodOverride = require('method-override'),
         cors = require('cors'),
         axios = require('axios');
@@ -12,6 +13,12 @@ const   app = express();
 app.use(cors())
 app.use(bodyParser.json())
 
+=======
+        methodOverride = require('method-override');
+const { monitorEventLoopDelay } = require("perf_hooks");
+
+const   app = express();
+>>>>>>> cff70eab5929ee12d626b1ca81db11e7486a74cb
 app.use(methodOverride("_method"));
 app.use(require('express-session')({
     secret: 'SE101',
@@ -19,8 +26,9 @@ app.use(require('express-session')({
     saveUninitialized: false
 }));
 app.use(passport.initialize());
-app.use(passport.session());
+app.use(passport.session()); 
 
+<<<<<<< HEAD
 //passport.use(new passportLocal(User.authenticate()));
 //passport.serializeUser(User.serializeUser());
 //passport.deserializeUser(User.deserializeUser());
@@ -41,6 +49,8 @@ app.post('/signin/facebook', async (req, res) => {
       // If (result) --> process signup (new user) / signin (exiting user)
     } catch (error) {}
 })
+=======
+>>>>>>> cff70eab5929ee12d626b1ca81db11e7486a74cb
 
 app.listen(8000,function(req,res){
     console.log('Panjai has started!');
