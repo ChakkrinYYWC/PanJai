@@ -11,11 +11,6 @@ const   express = require("express"),
 const   app = express();
 app.use(cors())
 app.use(bodyParser.json())
-        methodOverride = require('method-override');
-const { monitorEventLoopDelay } = require("perf_hooks");
-
-const   app = express();
-
 app.use(methodOverride("_method"));
 app.use(require('express-session')({
     secret: 'SE101',
@@ -23,7 +18,7 @@ app.use(require('express-session')({
     saveUninitialized: false
 }));
 app.use(passport.initialize());
-app.use(passport.session()); 
+app.use(passport.session());
 
 //passport.use(new passportLocal(User.authenticate()));
 //passport.serializeUser(User.serializeUser());
