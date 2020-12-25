@@ -47,9 +47,10 @@ passport.deserializeUser(user.deserializeUser());
 //     } catch (error) {}
 // })
 
-app.get('/', (req, res)=>{
-  let response = user.username;
-  res.send(response);
+app.get('/user',async (req, res)=>{
+  let response = await user.find({})
+  console.log(response)
+  return res.send(response);
 })
 // app.post("/user", function(req, res){
 //   if(req.body.password != req.body.CPassword){
@@ -73,8 +74,8 @@ app.listen(3001,function(req,res){
     console.log('Panjai has started!');
 });
 
-// user.create({
-//   username : 'roong',
-//   password : 12345
-// }
-// )
+user.create({
+  username : 'Min',
+  password : 12345
+}
+)

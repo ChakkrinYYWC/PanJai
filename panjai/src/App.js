@@ -7,6 +7,15 @@ import './App.css';
 
 
 function App() {
+
+  const [userList, setUserList] = useState([]);
+
+  const getUsers = () =>{
+    axios.get('http://localhost:3001/user').then((response) =>{
+      setUserList(response.data)
+    });
+  }
+
   return (
     <div className="App1 container">
       <h1>User information</h1>
@@ -28,6 +37,19 @@ function App() {
             <button type="submit">Register</button>
           </div>
         </form>
+        <div>
+          <button onClick={getUsers}>Show employees</button>
+
+          {userList.map((val, key) => {
+            return(
+              <div>
+                <div>
+                  <p>Username: {val.username}</p>
+                </div>
+              </div>
+            )
+          })}
+        </div>
       </div>
     </div>
   )
