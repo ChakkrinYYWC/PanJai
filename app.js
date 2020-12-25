@@ -6,11 +6,12 @@ const   express = require("express"),
         passportLocalMongoose = require('passport-local-mongoose'),
         methodOverride = require('method-override'),
         cors = require('cors'),
-        axios = require('axios'),
-        indexRoutes = require('./routes/index');
+        axios = require('axios');
 
 const   app = express();
 app.use(cors())
+app.use(bodyParser.json())
+
 app.use(methodOverride("_method"));
 app.use(require('express-session')({
     secret: 'SE101',
@@ -24,7 +25,6 @@ app.use(passport.session());
 //passport.serializeUser(User.serializeUser());
 //passport.deserializeUser(User.deserializeUser());
 
-app.use('/',indexRoutes);
 
 app.post('/signin/facebook', async (req, res) => {
     console.log('Request -->', req.body.user)
@@ -40,8 +40,8 @@ app.post('/signin/facebook', async (req, res) => {
   
       // If (result) --> process signup (new user) / signin (exiting user)
     } catch (error) {}
-  })
+})
 
 app.listen(8000,function(req,res){
-    console.log('EduTarot has started!');
+    console.log('Panjai has started!');
 });
