@@ -31,7 +31,7 @@ mongoose.connect('mongodb+srv://Roong:rung241142@cluster0.txha8.mongodb.net/Clus
       console.log('Mongodb connection succeeded.')
     else
       console.log('Error while connecting MongoDB : ' + JSON.stringify(err, undefined, 2))
-  });
+});
 
 passport.use(new passportLocal(user.authenticate()));
 passport.serializeUser(user.serializeUser());
@@ -44,7 +44,13 @@ app.get('/', (req, res) => {
   res.send(response);
 })
 
-app.use('/Too-Panjai',postPanjaiRoutes,)
+app.get('/user',async (req, res)=>{
+  let response = await user.find({})
+  console.log(response)
+  return res.send(response);
+})
+
+app.use('/Too-Panjai',postPanjaiRoutes)
 
 // app.post("/user", function(req, res){
 //   if(req.body.password != req.body.CPassword){
@@ -83,9 +89,3 @@ app.use('/Too-Panjai',postPanjaiRoutes,)
 app.listen(3001, function (req, res) {
   console.log('Panjai has started!');
 });
-
-// user.create({
-//   username : 'roong',
-//   password : 12345
-// }
-// )
