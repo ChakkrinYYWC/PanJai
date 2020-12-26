@@ -11,7 +11,7 @@ const express = require("express"),
 const user = require('./model/user');
 
 const app = express();
-var postPanjaiRoutes = require('./controllers/PostController')
+var postPanjaiRoutes = require('./routes/PostController')
 app.use(cors())
 app.use(bodyParser.json())
 app.use(methodOverride("_method"));
