@@ -48,7 +48,7 @@ router.delete('/:id', (req, res)=>{
     if (!ObjectID.isValid(req.params.id))
         return res.status(400).send('No #4 : ' + req.params.id)
 
-    PostMessage.findByIdAndRemove(req.params.id, (err, docs)=>{
+    PostPanjai.findByIdAndRemove(req.params.id, (err, docs)=>{
         if (!err) 
             res.send(docs)
         else 
