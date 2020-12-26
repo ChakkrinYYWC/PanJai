@@ -12,7 +12,7 @@ const user = require('./model/user');
 
 const app = express();
 var postPanjaiRoutes = require('./routes/PostController')
-app.use(cors())
+app.use(cors({origin:'http://localhost:3000'}))
 app.use(bodyParser.json())
 app.use(methodOverride("_method"));
 app.use(passport.initialize())

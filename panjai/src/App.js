@@ -4,14 +4,26 @@ import axios from 'axios';
 import React from 'react';
 import { useState } from 'react';
 import './App.css';
-import PostPanjai from './PostPanjai';
-import { Provider } from 'react-redux';
-import { store } from './action/store';
+import { Provider } from "react-redux";
+import PostPanjai from "./PostPanjai";
+import { store } from "./action/store";
+import { Container, AppBar, Typography } from "@material-ui/core";
+import ButterToast, { POS_RIGHT, POS_TOP } from "butter-toast";
 
-function App(){
-  return(
+function App() {
+  return (
     <Provider store={store}>
-      <PostPanjai/>
+      <Container maxWidth="lg">
+        <AppBar position="static" color="inherit">
+          <Typography
+            variant="h2"
+            align="center">
+            Post Box
+          </Typography>
+        </AppBar>
+        <PostPanjai />
+        <ButterToast position={{ vertical: POS_TOP, horizontal: POS_RIGHT }} />
+      </Container>
     </Provider>
   );
 }
