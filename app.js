@@ -38,37 +38,62 @@ passport.serializeUser(user.serializeUser());
 passport.deserializeUser(user.deserializeUser());
 
 
-
-app.get('/', (req, res) => {
-  let response = user.username;
-  res.send(response);
-})
-
 app.get('/user',async (req, res)=>{
   let response = await user.find({})
   console.log(response)
   return res.send(response);
 })
+app.post("/createUser", function(req, res){
+  if(req.body.password != req.body.CPassword){
+      console.log("confirm password incorrect")
+      //return res.redirect('/')
+  }
+  user.register(new user({username: req.body.username}), req.body.password,function(error, user){
+      if(error){
+          console.log(error);
+          //return res.render('call back register')
+      }
+
+      passport.authenticate('local')(req,res,function(){
+          //req.flash('success','Welcome to our website ,'+ user.username)
+          //res.redirect('/')
+      })
+  })
+})
+
+app.put('/userUpdate', function (req, res) {
+  const selectid = req.body.id;
+  const newUsername = req.body.username;
+  console.log(selectid)
+  console.log(newUsername)
+  user.findByIdAndUpdate(selectid, {username:newUsername}, function(error,update){
+    if(error){
+        console.log(error)
+    }else{
+        //res.redirect('/dinsor/'+req.params.id)
+        //console.log(update)
+        res.send({_id : selectid ,username:newUsername});
+    }
+  })
+});
+
+app.delete('/userRemove/:id', function (req, res) {
+  const selectid = req.params.id;
+  console.log(selectid)
+  user.findByIdAndDelete(selectid, function(error,remove){
+    if(error){
+        console.log(error)
+    }else{
+        //res.redirect('/dinsor/'+req.params.id)
+        //console.log(update)
+        res.send(remove);
+    }
+  })
+});
 
 app.use('/Too-Panjai',postPanjaiRoutes)
 
-// app.post("/user", function(req, res){
-//   if(req.body.password != req.body.CPassword){
-//       console.log("confirm password incorrect")
-//       return res.redirect('/')
-//   }
-//   user.register(new user({username: req.body.Username}), req.body.password,function(error, user){
-//       if(error){
-//           console.log(error);
-//           return res.render('call back register')
-//       }
 
-//       passport.authenticate('local')(req,res,function(){
-//           //req.flash('success','Welcome to our website ,'+ user.username)
-//           res.redirect('/')
-//       })
-//   })
-// })
 
 // app.post('/signin/facebook', async (req, res) => {
 //     console.log('Request -->', req.body.user)

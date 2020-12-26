@@ -1,49 +1,131 @@
 import logo from './logo.svg';
 import FacebookLogin from 'react-facebook-login';
-import axios from 'axios';
+import Axios from 'axios';
 import React from 'react';
 import { useState } from 'react';
 import './App.css';
 
 function App() {
-
+/*-----------------------------------------------------------*/
   const [userList, setUserList] = useState([]);
-
   const getUsers = () =>{
-    axios.get('http://localhost:3001/user').then((response) =>{
+    Axios.get('http://localhost:3001/user').then((response) =>{
       setUserList(response.data)
     });
   }
+/*-----------------------------------------------------------*/
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [CPassword, setCPassword] = useState("");
 
+  const addUser = () => {
+    Axios.post('http://localhost:3001/createUser',{
+      username: username,
+      password: password,
+      CPassword: CPassword 
+    }).then(() => {
+      setUserList([
+        ...userList,
+        {
+          username: username,
+          password: password,
+          CPassword: CPassword 
+        }
+      ])
+    })
+  }
+/*-----------------------------------------------------------*/
+const [newUsername, setNewUsername] = useState("");
+
+const updateUser = (id) => {
+  Axios.put("http://localhost:3001/userUpdate", { username: newUsername, id: id }).then((response) => {
+      setUserList(
+        userList.map((val) => {
+          return val._id == id
+            ? {
+                username: newUsername
+              }
+            : val;
+        })
+      );
+    }
+  );
+};
+/*-----------------------------------------------------------*/
+const removeUser = (Pid) => {
+  Axios.delete('http://localhost:3001/userRemove/'+Pid).then((response) => {
+      console.log(Pid)
+      setUserList(
+        userList.filter((val) =>{
+          return val._id != Pid;
+        })
+      );
+    }
+  );
+};
+/*-----------------------------------------------------------*/
   return (
     <div className="App1 container">
       <h1>User information</h1>
       <div>
-        <form action="/user" method="POST">
+        <form>
           <div>
             <label>Username:</label>
-            <input type="text" name="Username" placeholder="Enter name"></input>
+            <input
+              type="text"
+              name="Username"
+              placeholder="Enter name"
+              onChange={(event) =>{
+                setUsername(event.target.value)
+              }}
+              >
+            </input>
           </div>
           <div>
             <label>Password:</label>
-            <input type="text" name="Password" placeholder="Enter Password"></input>
+            <input
+              type="text"
+              name="Password"
+              placeholder="Enter Password"
+              onChange={(event) =>{
+                setPassword(event.target.value)
+              }}
+              >
+            </input>
           </div>
           <div>
             <label>Comfirm Password:</label>
-            <input type="text" name="CPassword" placeholder="Comfirm Password"></input>
+            <input
+              type="text"
+              name="CPassword"
+              placeholder="Comfirm Password"
+              onChange={(event) =>{
+                setCPassword(event.target.value)
+              }}
+              >
+            </input>
           </div>
           <div>
-            <button type="submit">Register</button>
+            <button onClick={addUser}>Register</button>
           </div>
         </form>
         <div>
-          <button onClick={getUsers}>Show employees</button>
+          <button onClick={getUsers}>Show Users</button>
 
           {userList.map((val, key) => {
             return(
-              <div>
+              <div className="card">
+                <p>Username: {val.username}</p>
                 <div>
-                  <p>Username: {val.username}</p>
+                  <input type='text'
+                    placeholder="New username"
+                    onChange={(event) => {
+                      setNewUsername(event.target.value)
+                    }}
+                  >
+                  </input>
+                  <button onClick={() => {updateUser(val._id)}}>Update</button>
+                  <button onClick={() => {removeUser(val._id)}}>Remove</button>
                 </div>
               </div>
             )
