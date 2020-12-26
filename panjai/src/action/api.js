@@ -1,9 +1,9 @@
 import axios from "axios";
 
-const baseUrl = 'http://localhost:4000/'
+const baseUrl = 'http://localhost:3001/'
 
 export default {
-    postMessage(url = baseUrl + 'postmessages/') {
+    postPanjai(url = baseUrl + 'Too-Panjai/') {
         return {
             fetchAll: () => axios.get(url),
             fetchById: id => axios.get(url + id),
