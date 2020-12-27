@@ -8,7 +8,9 @@ import { AssignmentTurnedIn } from "@material-ui/icons";
 
 const initialFieldValues = {
     title: '',
-    message: ''
+    message: '',
+    contect: '',
+    location: ''
 }
 
 const styles = theme => ({
@@ -40,8 +42,10 @@ const PostPanjaiForm = ({ classes, ...props }) => {
 
     const validate = () => {
         let temp = { ...errors }
-        temp.title = values.title ? "" : "This field is required."
-        temp.message = values.message ? "" : "This field is required."
+        temp.title = values.title ? "" : "โปรดใส่ข้อมูล."
+        temp.message = values.message ? "" : "โปรดใส่ข้อมูล."
+        temp.contect = values.contect ? "" : "โปรดใส่ข้อมูล."
+        temp.location = values.location ? "" : "โปรดใส่ข้อมูล."
         setErrors({
             ...temp
         })
@@ -61,7 +65,7 @@ const PostPanjaiForm = ({ classes, ...props }) => {
         e.preventDefault()
         const onSuccess = () => {
             ButterToast.raise({
-                content: <Cinnamon.Crisp title="Post Box"
+                content: <Cinnamon.Crisp title="ตู้ปันใจ"
                     content="Submitted successfully"
                     scheme={Cinnamon.Crisp.SCHEME_PURPLE}
                     icon={<AssignmentTurnedIn />}
@@ -83,7 +87,7 @@ const PostPanjaiForm = ({ classes, ...props }) => {
             <TextField
                 name="title"
                 variant="outlined"
-                label="Title"
+                label="ชื่อ"
                 fullWidth
                 value={values.title}
                 onChange={handleInputChange}
@@ -92,7 +96,7 @@ const PostPanjaiForm = ({ classes, ...props }) => {
             <TextField
                 name="message"
                 variant="outlined"
-                label="Message"
+                label="ข้อมูล"
                 fullWidth
                 multiline
                 rows={4}
@@ -100,13 +104,33 @@ const PostPanjaiForm = ({ classes, ...props }) => {
                 onChange={handleInputChange}
                 {...(errors.message && { error: true, helperText: errors.message })}
             />
+            <TextField
+                name="contect"
+                variant="outlined"
+                label="เบอร์โทรศัพท์"
+                fullWidth
+                multiline
+                value={values.contect}
+                onChange={handleInputChange}
+                {...(errors.contect && { error: true, helperText: errors.contect })}
+            />
+            <TextField
+                name="location"
+                variant="outlined"
+                label="ใส่ชื่อจังหวัด"
+                fullWidth
+                multiline
+                value={values.location}
+                onChange={handleInputChange}
+                {...(errors.location && { error: true, helperText: errors.location })}
+            />
             <Button
                 variant="contained"
                 color="primary"
                 size="large"
                 type="submit"
                 className={classes.postBtn}
-            >Submit</Button>
+            >โพสต์</Button>
         </form>
     );
 }

@@ -149,7 +149,7 @@ function App(){
           <Typography
             variant="h2"
             align="center">
-            Post Box
+            ตู้ปันใจ
           </Typography>
         </AppBar>
         <PostPanjai />

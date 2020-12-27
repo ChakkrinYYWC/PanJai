@@ -30,14 +30,14 @@ const PostPanjai = ({ classes, ...props }) => {
     const onDelete = id => {
         const onSuccess = () => {
             ButterToast.raise({
-                content: <Cinnamon.Crisp title="Post Box"
+                content: <Cinnamon.Crisp title="ตู้ปันใจ"
                     content="Deleted successfully"
                     scheme={Cinnamon.Crisp.SCHEME_PURPLE}
                     icon={<DeleteSweep />}
                 />
             })
         }
-        if (window.confirm('Are you sure to delete this record?'))
+        if (window.confirm('ต้องการลบโพสนี้ใช่หรือไม่?'))
             props.deletePostMessage(id, onSuccess)
     }
 
@@ -62,21 +62,27 @@ const PostPanjai = ({ classes, ...props }) => {
                                                     {record.title}
                                                 </Typography>
                                                 <div>
-                                                    {record.message}
+                                                    ข้อมูล : {record.message}
                                                 </div>
-                                                <div> 
-                                                    {record.Timestamp}
+                                                <div>
+                                                    เวลาที่ลง : {record.Timestamp}
+                                                </div>
+                                                <div>
+                                                    โทร : {record.contect}
+                                                </div>
+                                                <div>
+                                                    {record.location}
                                                 </div>
                                                 <div className={classes.actionDiv}>
                                                     <Button variant="contained" color="primary" size="small"
                                                         className={classes.smMargin}
                                                         onClick={() => setCurrentId(record._id)}>
-                                                        Edit
+                                                        แก้ไข
                                                     </Button>
                                                     <Button variant="contained" color="secondary" size="small"
                                                         className={classes.smMargin}
                                                         onClick={() => onDelete(record._id)}>
-                                                        Delete
+                                                        ลบ
                                                     </Button>
                                                 </div>
                                             </ListItemText>

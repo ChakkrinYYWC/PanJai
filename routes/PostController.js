@@ -16,7 +16,9 @@ router.get('/', (req, res)=>{
 router.post('/', (req, res) => {
     var newRecord = new PostPanjai({
         title: req.body.title,
-        message: req.body.message
+        message: req.body.message,
+        contect: req.body.contect,
+        location: req.body.location
     })
     console.log(newRecord)
     newRecord.save((err, docs) => {
@@ -33,7 +35,9 @@ router.put('/:id', (req, res)=>{
 
     var updatedRecord = {
         title: req.body.title,
-        message: req.body.message
+        message: req.body.message,
+        contect: req.body.contect,
+        location: req.body.location
     }
 
     PostPanjai.findByIdAndUpdate(req.params.id, { $set: updatedRecord }, {new:true}, (err, docs)=>{
