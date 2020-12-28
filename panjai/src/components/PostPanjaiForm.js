@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { TextField, withStyles, Button } from "@material-ui/core";
 import useForm from "./useForm";
 import { connect } from "react-redux";
-import * as actions from "./action/postPanjai";
+import * as actions from "../action/postPanjai";
 import ButterToast, { Cinnamon } from "butter-toast";
 import { AssignmentTurnedIn } from "@material-ui/icons";
 
@@ -42,10 +42,10 @@ const PostPanjaiForm = ({ classes, ...props }) => {
 
     const validate = () => {
         let temp = { ...errors }
-        temp.title = values.title ? "" : "โปรดใส่ข้อมูล."
-        temp.message = values.message ? "" : "โปรดใส่ข้อมูล."
-        temp.contect = values.contect ? "" : "โปรดใส่ข้อมูล."
-        temp.location = values.location ? "" : "โปรดใส่ข้อมูล."
+        temp.title = values.title ? "" : "กรุณาใส่ข้อมูล."
+        temp.message = values.message ? "" : "กรุณาใส่ข้อมูล."
+        temp.contect = values.contect ? "" : "กรุณาใส่ข้อมูล."
+        temp.location = values.location ? "" : "กรุณาใส่ข้อมูล."
         setErrors({
             ...temp
         })
