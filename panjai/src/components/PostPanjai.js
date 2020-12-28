@@ -1,10 +1,11 @@
 import React, { useEffect, useState, Fragment } from 'react';
 import { connect } from 'react-redux';
-import * as action from './action/postPanjai'
+import * as action from '../action/postPanjai'
 import { Divider, Grid, Paper, Typography, withStyles, List, ListItem, ListItemText, Button } from '@material-ui/core';
 import PostPanjaiFrom from './PostPanjaiForm';
 import ButterToast, { Cinnamon } from "butter-toast";
 import { DeleteSweep } from "@material-ui/icons";
+import moment from 'moment';
 
 const styles = theme => ({
     paper: {
@@ -65,7 +66,7 @@ const PostPanjai = ({ classes, ...props }) => {
                                                     ข้อมูล : {record.message}
                                                 </div>
                                                 <div>
-                                                    เวลาที่ลง : {record.Timestamp}
+                                                    เวลาที่ลง : {moment(record.Timestamp).format('Do MMMM YYYY')}                              
                                                 </div>
                                                 <div>
                                                     โทร : {record.contect}
