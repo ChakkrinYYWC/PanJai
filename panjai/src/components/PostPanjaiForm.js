@@ -10,7 +10,8 @@ const initialFieldValues = {
     title: '',
     message: '',
     contect: '',
-    location: ''
+    location: '',
+    image:''
 }
 
 const styles = theme => ({
@@ -84,6 +85,15 @@ const PostPanjaiForm = ({ classes, ...props }) => {
     return (
         <form autoComplete="off" noValidate className={`${classes.root} ${classes.form}`}
             onSubmit={handleSubmit}>
+            <div className='form-group'>
+                <input
+                    className='form-input bg-light'
+                    name='image'
+                    type='file'
+                    value={values.image}
+                    onChange={handleInputChange}
+                />
+            </div>
             <TextField
                 name="title"
                 variant="outlined"

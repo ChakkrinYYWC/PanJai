@@ -7,7 +7,8 @@ var PostPanjai = mongoose.model('PostPanjai',{
     Timestamp : { type: Date, default: Date.now },
     image: String,
     contect: String,
-    location:String
+    location:String,
+    image: String
 },'PostPanjai')
 
 

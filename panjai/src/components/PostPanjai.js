@@ -6,6 +6,7 @@ import PostPanjaiFrom from './PostPanjaiForm';
 import ButterToast, { Cinnamon } from "butter-toast";
 import { DeleteSweep } from "@material-ui/icons";
 import moment from 'moment';
+import {Img} from 'react-image';
 
 const styles = theme => ({
     paper: {
@@ -66,7 +67,10 @@ const PostPanjai = ({ classes, ...props }) => {
                                                     ข้อมูล : {record.message}
                                                 </div>
                                                 <div>
-                                                    เวลาที่ลง : {moment(record.Timestamp).format('Do MMMM YYYY')}                              
+                                                    <img src={record.image}/>
+                                                </div>
+                                                <div>
+                                                    เวลาที่ลง : {moment(record.Timestamp).calendar()}                              
                                                 </div>
                                                 <div>
                                                     โทร : {record.contect}
