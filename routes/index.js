@@ -7,19 +7,20 @@ const express = require("express"),
     methodOverride = require('method-override'),
     cors = require('cors'),
     axios = require('axios');
-const router = require("./PostController");
-    router = express.Router();
+const router = require("./PostController"),
+    server = express.Router();
 
-router.get('/user',async (req, res)=>{
+    
+server.get('/user',async (req, res)=>{
     let response = await user.find({})
     console.log(response)
     return res.send(response);
 })
-router.post("/checkUser", passport.authenticate('local',{
+server.post("/checkUser", passport.authenticate('local',{
     successRedirect: '/homepage',
     failureRedirect: '/login',
 }))
-router.post("/createUser", function(req, res){
+server.post("/createUser", function(req, res){
     if(req.body.password != req.body.CPassword){
         console.log("confirm password incorrect")
       //return res.redirect('/')
@@ -37,7 +38,7 @@ router.post("/createUser", function(req, res){
     })
 })
 
-router.put('/userUpdate', function (req, res) {
+server.put('/userUpdate', function (req, res) {
     const selectid = req.body.id;
     const newUsername = req.body.username;
     console.log(selectid)
@@ -53,7 +54,7 @@ router.put('/userUpdate', function (req, res) {
     })
 });
 
-router.delete('/userRemove/:id', function (req, res) {
+server.delete('/userRemove/:id', function (req, res) {
     const selectid = req.params.id;
     console.log(selectid)
     user.findByIdAndDelete(selectid, function(error,remove){
@@ -67,4 +68,4 @@ router.delete('/userRemove/:id', function (req, res) {
     })
 });
 
-module.exports = router;
+module.exports = server;
