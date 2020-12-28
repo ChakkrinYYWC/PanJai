@@ -9,9 +9,10 @@ const express = require("express"),
       axios = require('axios');
 
 const user = require('./model/user');
+var postPanjaiRoutes = require('./routes/PostController')
+var authenticate = require('./routes/index')
 
 const app = express();
-var postPanjaiRoutes = require('./routes/PostController')
 app.use(cors({origin:'http://localhost:3000'}))
 app.use(bodyParser.json())
 app.use(methodOverride("_method"));
@@ -37,63 +38,8 @@ passport.use(new passportLocal(user.authenticate()));
 passport.serializeUser(user.serializeUser());
 passport.deserializeUser(user.deserializeUser());
 
-
-app.get('/user',async (req, res)=>{
-  let response = await user.find({})
-  console.log(response)
-  return res.send(response);
-})
-app.post("/createUser", function(req, res){
-  if(req.body.password != req.body.CPassword){
-      console.log("confirm password incorrect")
-      //return res.redirect('/')
-  }
-  user.register(new user({username: req.body.username}), req.body.password,function(error, user){
-      if(error){
-          console.log(error);
-          //return res.render('call back register')
-      }
-
-      passport.authenticate('local')(req,res,function(){
-          //req.flash('success','Welcome to our website ,'+ user.username)
-          //res.redirect('/')
-      })
-  })
-})
-
-app.put('/userUpdate', function (req, res) {
-  const selectid = req.body.id;
-  const newUsername = req.body.username;
-  console.log(selectid)
-  console.log(newUsername)
-  user.findByIdAndUpdate(selectid, {username:newUsername}, function(error,update){
-    if(error){
-        console.log(error)
-    }else{
-        //res.redirect('/dinsor/'+req.params.id)
-        //console.log(update)
-        res.send({_id : selectid ,username:newUsername});
-    }
-  })
-});
-
-app.delete('/userRemove/:id', function (req, res) {
-  const selectid = req.params.id;
-  console.log(selectid)
-  user.findByIdAndDelete(selectid, function(error,remove){
-    if(error){
-        console.log(error)
-    }else{
-        //res.redirect('/dinsor/'+req.params.id)
-        //console.log(update)
-        res.send(remove);
-    }
-  })
-});
-
+app.use('/authenticate',authenticate)
 app.use('/Too-Panjai',postPanjaiRoutes)
-
-
 
 // app.post('/signin/facebook', async (req, res) => {
 //     console.log('Request -->', req.body.user)
